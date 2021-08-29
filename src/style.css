@@ -1,0 +1,167 @@
+body {
+  text-align: center;
+  background: #6ea9dc;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  margin: 40px auto 0;
+  font-size: 40px;
+}
+h2 {
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+h3 {
+  padding: 0 0 20px 0;
+  color: white;
+  margin: 0 auto;
+}
+a {
+  color: #6ea9dc;
+}
+a:visited {
+  color: white;
+}
+button {
+  display: block;
+  width: 105px;
+  margin: 0 0 15px 0;
+  background: #6ea9dc;
+  border: 1px solid #6ea9dc;
+  border-radius: 15px;
+  color: white;
+  font-size: 20px;
+  transition: all 180ms ease-in-out;
+  box-shadow: 3px 3px 2px 1px rgba(44, 76, 104, 0.2);
+}
+
+button:hover {
+  background: white;
+  border: 1px solid white;
+  color: #6ea9dc;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.form-control {
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+}
+.card {
+  display: block;
+  margin: 20px auto;
+  width: 700px;
+  height: 350px;
+  background: white;
+  border: 3px solid #6ea9dc;
+  border-radius: 15px;
+  color: #6ea9dc;
+}
+.card-body {
+  justify-content: center;
+  margin: 0 auto;
+}
+.row {
+  justify-content: center;
+}
+.header {
+  position: relative;
+}
+.city-info {
+  font-size: 30px;
+  text-align: center;
+}
+.datetime {
+  margin-bottom: 10px;
+}
+.main-emoji,
+.main-temp {
+  font-size: 65px;
+  padding: 0;
+}
+.main-emoji {
+  padding: 0 0 0 215px;
+}
+.temp-type {
+  padding: 20px 0 0 0;
+  line-height: 30px;
+  text-align: left;
+}
+.fahr,
+.cel,
+.divider {
+  text-decoration: none;
+  font-size: 35px;
+}
+.fahr:hover,
+.cel:hover {
+  text-decoration: underline;
+}
+.fahr:visited,
+.cel:visited {
+  color: #6ea9dc;
+}
+.weekdays {
+  margin: 10px 8px;
+}
+.day-of-week {
+  font-size: smaller;
+}
+.weekday-emoji {
+  font-size: 35px;
+}
+.weekday-temp {
+  font-size: 15px;
+  margin: 0 auto 20px auto;
+}
+.sub-card {
+  position: relative;
+  width: 575px;
+  margin: 0 auto;
+  padding: 15px;
+  background: #6ea9dc;
+  border-radius: 15px;
+  color: white;
+}
+.other-cities {
+  background: white;
+  color: #6ea9dc;
+  width: 140px;
+  border-radius: 15px;
+  margin: 0 20px;
+  padding: 10px 0;
+}
+.other-emoji {
+  font-size: 35px;
+}
+.puns-card {
+  position: relative;
+  display: block;
+  margin: 20px auto;
+  width: 700px;
+  height: 100px;
+  background: white;
+  border: 3px solid #6ea9dc;
+  border-radius: 15px;
+  color: #6ea9dc;
+}
+.quote {
+  padding: 5px 0 0 0;
+  font-size: 45px;
+  line-height: normal;
+  text-align: left;
+}
+.footer {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+}
