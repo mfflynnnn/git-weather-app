@@ -29,7 +29,6 @@ function updateCityData(response) {
   let weatherDescriptionElement = document.querySelector(
     ".weather-description"
   );
-  console.log(response.data);
   cityDisplay.innerHTML = response.data.name;
   mainTempElement.innerHTML = `${mainTemp}°`;
   mainEmojiElement.setAttribute(
