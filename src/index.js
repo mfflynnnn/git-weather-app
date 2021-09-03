@@ -3,11 +3,14 @@ let apiUrl = "https://api.openweathermap.org/data/2.5/weather?";
 let cityDisplay = document.querySelector(".city-info");
 let defaultCityName = "London";
 let unitFahr = "imperial";
-//let unitCel = "metric";
 let apiKey = "bf73b51ef2be4a323ff1bb029d39992b";
+let fahrLink = document.querySelector(".fahr");
+let celLink = document.querySelector(".cel");
+let tempUnits = "F";
+let mainTempElement = document.querySelector(".main-temp");
 
 //CREATE A URL AND PASS IT CITY DATA WHEN WE CALL IT
-function createUrlFromNewCity(city) {
+function createUrlFromNewCityFahr(city) {
   return `${apiUrl}q=${city}&units=${unitFahr}&appid=${apiKey}`;
 }
 
@@ -17,7 +20,7 @@ function changeCity(event) {
   let cityEntry = document.querySelector(".form-control");
   let cityName = cityEntry.value;
   cityDisplay.innerHTML = cityName;
-  let newUrl = createUrlFromNewCity(cityName);
+  let newUrl = createUrlFromNewCityFahr(cityName);
   axios.get(newUrl).then(updateCityData);
 }
 
@@ -29,7 +32,6 @@ function updateCityData(response) {
   let humidity = document.querySelector(".humidity");
   let wind = document.querySelector(".wind");
   let mainTemp = Math.round(response.data.main.temp);
-  let mainTempElement = document.querySelector(".main-temp");
   let mainEmojiElement = document.querySelector(".main-emoji");
 
   console.log(response.data);
@@ -38,12 +40,49 @@ function updateCityData(response) {
   weatherDescriptionElement.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = `${response.data.main.humidity}%`;
   wind.innerHTML = `${Math.round(response.data.wind.speed)} m/s`;
-  mainTempElement.innerHTML = `${mainTemp}°`;
+  mainTempElement.innerHTML = mainTemp;
   mainEmojiElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
+}
+
+//ON CLICK, CHANGE THE MAIN TEMP BETWEEN FAHRENHEIT AND CELSIUS
+function tempToFahrenheit(event) {
+  event.preventDefault();
+  //Get temp
+  let tempString = mainTempElement.innerHTML;
+  tempNumber = Number(tempString);
+  console.log(tempString);
+  console.log(tempNumber);
+  if (tempUnits == "F") {
+    return;
+  }
+  //Convert Cel to Fahr
+  let celToFahr = Math.round((tempNumber * 9) / 5 + 32);
+
+  tempUnits = "F";
+  //Display
+  mainTempElement.innerHTML = celToFahr;
+}
+
+function tempToCelsius(event) {
+  event.preventDefault();
+  //Get temp
+  let tempString = mainTempElement.innerHTML;
+  tempNumber = Number(tempString);
+  console.log(tempString);
+  console.log(tempNumber);
+  if (tempUnits == "C") {
+    return;
+  }
+  //Convert Fahr to Cel
+  let fahrToCel = Math.round((tempNumber - 32) * (5 / 9));
+
+  tempUnits = "C";
+  //Display
+  mainTempElement.innerHTML = fahrToCel;
 }
 
 //DISPLAY THE CURRENT TIME FOR SEATTLE - THIS DOES NOT YET HAVE TO CHANGE W/ CHANGE OF CITY
@@ -66,8 +105,10 @@ function displayTime() {
 }
 
 //CALL FUNCTIONS
+axios.get(createUrlFromNewCityFahr(defaultCityName)).then(updateCityData);
 window.addEventListener("submit", changeCity);
-axios.get(createUrlFromNewCity(defaultCityName)).then(updateCityData);
+fahrLink.addEventListener("click", tempToFahrenheit);
+celLink.addEventListener("click", tempToCelsius);
 displayTime();
 
 /*
@@ -77,15 +118,15 @@ displayTime();
 function tempFahrenheit(event) {
   event.preventDefault();
   let primaryTemp = document.querySelector(".main-temp");
-  let celcius = 13;
-  let convertToFahr = Math.round(celcius * (9 / 5) + 32);
+  let celsius = 13;
+  let convertToFahr = Math.round(celsius * (9 / 5) + 32);
   primaryTemp.innerHTML = convertToFahr;
 }
 
 let fahrLink = document.querySelector(".fahr");
 fahrLink.addEventListener("click", tempFahrenheit);
 
-function tempCelcius(event) {
+function tempCelsius(event) {
   event.preventDefault();
   let primaryTemp = document.querySelector(".main-temp");
   let fahrenheit = 55;
@@ -94,7 +135,7 @@ function tempCelcius(event) {
 }
 
 let celLink = document.querySelector(".cel");
-celLink.addEventListener("click", tempCelcius);
+celLink.addEventListener("click", tempCelsius);
 
 function createUrlFromCoords(lat, long) {
   return `${apiUrl}lat=${lat}&lon=${long}&units=${unitFahr}&appid=${apiKey}`;

@@ -98,6 +98,9 @@ button:hover {
 .main-temp {
   font-size: 105px;
 }
+.degree-symbol {
+  font-size: 105px;
+}
 .temp-type {
   display: inline-flex;
   text-align: left;
