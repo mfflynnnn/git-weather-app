@@ -41,23 +41,35 @@
         </form>
       </div>
       <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-6 city-info"></div>
-          </div>
-          <div class="row">
-            <span class="datetime"></span>
-          </div>
-          <div class="row">
-            <div class="col-5 main-emoji">☀️</div>
-            <div class="col-2 main-temp"></div>
-            <div class="col-5 temp-type">
+        <div class="row">
+          <ul class="col-3 left-panel">
+            <li class="city-info"></li>
+            <li class="date-time"></li>
+            <li class="weather-description"></li>
+          </ul>
+          <div class="col-6 primary-center-div">
+            <img class="main-emoji"></>
+            <span class="main-temp"></span>
+            <span class="temp-type">
               <a href="#" class="fahr">F</a>
               <span class="divider">/</span>
               <a href="#" class="cel">C</a>
-            </div>
+            </span>
           </div>
-          <div class="weather-description"></div>
+          <ul class="col-3 right-panel">
+            <li>
+              <span>Precipitation: </span>
+              <span class="precipitation"></span>
+            </li>
+            <li>
+              <span>Humidity: </span>
+              <span class="humidity"></span>
+            </li>
+            <li>
+              <span>Wind: </span>
+              <span class="wind"></span>
+            </li>
+          </ul>
         </div>
         <div class="row">
           <span class="col-2 weekdays">

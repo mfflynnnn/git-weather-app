@@ -25,11 +25,18 @@ function changeCity(event) {
 function updateCityData(response) {
   let mainTemp = Math.round(response.data.main.temp);
   let mainTempElement = document.querySelector(".main-temp");
+  let mainEmojiElement = document.querySelector(".main-emoji");
   let weatherDescriptionElement = document.querySelector(
     ".weather-description"
   );
+  console.log(response.data);
   cityDisplay.innerHTML = response.data.name;
   mainTempElement.innerHTML = `${mainTemp}°`;
+  mainEmojiElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
   weatherDescriptionElement.innerHTML = response.data.weather[0].main;
 }
 
@@ -48,7 +55,7 @@ function displayTime() {
   }
 
   let finalTime = hours + ":" + minutes + " " + amOrPm;
-  let timeStamp = document.querySelector(".datetime");
+  let timeStamp = document.querySelector(".date-time");
   timeStamp.innerHTML = `${dayName} ${finalTime}`;
 }
 
@@ -99,4 +106,17 @@ function clickForLocalWeather(event) {
 
 navigator.geolocation.getCurrentPosition(clickForLocalWeather);
 window.addEventListener("click", clickForLocalWeather);
+*/
+
+/* 
+------------------------------------------
+TASK LIST
+1). DONE - Include the search engine
+2). DONE - Implement API integration
+3). DONE - Factor in weather icon
+4). Factor in wind speed, precipitation, humidity, and weather description
+5). Factor in unit conversion (c/f)
+
+TIME DOESN'T MATTER
+FORECAST DOESN'T MATTER
 */

@@ -18,6 +18,12 @@ h3 {
   color: white;
   margin: 0 auto;
 }
+ul {
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
 a {
   color: #6ea9dc;
 }
@@ -36,13 +42,11 @@ button {
   transition: all 180ms ease-in-out;
   box-shadow: 3px 3px 2px 1px rgba(44, 76, 104, 0.2);
 }
-
 button:hover {
   background: white;
   border: 1px solid white;
   color: #6ea9dc;
 }
-
 #myVideo {
   position: fixed;
   right: 0;
@@ -50,7 +54,9 @@ button:hover {
   min-width: 100%;
   min-height: 100%;
 }
-
+.header {
+  position: relative;
+}
 .form-control {
   display: block;
   margin: 0 auto;
@@ -59,6 +65,7 @@ button:hover {
 .card {
   display: block;
   margin: 20px auto;
+  padding: 0 30px;
   width: 700px;
   height: 350px;
   background: white;
@@ -66,41 +73,29 @@ button:hover {
   border-radius: 15px;
   color: #6ea9dc;
 }
-.card-body {
-  justify-content: center;
-  margin: 0 auto;
-}
-.row {
-  justify-content: center;
-}
-.header {
-  position: relative;
+.left-panel {
+  width: 24%;
+  margin-top: 10px;
 }
 .city-info {
   font-size: 30px;
-  text-align: center;
 }
-.datetime {
-  margin-bottom: 10px;
+.primary-center-div {
+  margin-top: 75px;
 }
 .main-emoji,
 .main-temp {
-  font-size: 65px;
+  font-size: 85px;
   padding: 0;
-}
-.main-emoji {
-  padding: 0 0 0 215px;
 }
 .temp-type {
   padding: 20px 0 0 0;
   line-height: 30px;
   text-align: left;
+  font-size: 25px;
 }
-.fahr,
-.cel,
-.divider {
+.temp-type a {
   text-decoration: none;
-  font-size: 35px;
 }
 .fahr:hover,
 .cel:hover {
@@ -109,6 +104,10 @@ button:hover {
 .fahr:visited,
 .cel:visited {
   color: #6ea9dc;
+}
+.right-panel {
+  text-align: right;
+  padding: 20px 20px 0 0;
 }
 .weekdays {
   margin: 10px 8px;
