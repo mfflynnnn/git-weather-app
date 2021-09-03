@@ -23,20 +23,27 @@ function changeCity(event) {
 
 //ON FORM-SUBMIT (FROM changeCity), CHANGE THE TEMP AND WEATHER DESCRIPTION BASED ON THE CITY THE USER SEARCHED FOR
 function updateCityData(response) {
-  let mainTemp = Math.round(response.data.main.temp);
-  let mainTempElement = document.querySelector(".main-temp");
-  let mainEmojiElement = document.querySelector(".main-emoji");
   let weatherDescriptionElement = document.querySelector(
     ".weather-description"
   );
+  let humidity = document.querySelector(".humidity");
+  let wind = document.querySelector(".wind");
+  let mainTemp = Math.round(response.data.main.temp);
+  let mainTempElement = document.querySelector(".main-temp");
+  let mainEmojiElement = document.querySelector(".main-emoji");
+
+  console.log(response.data);
+
   cityDisplay.innerHTML = response.data.name;
+  weatherDescriptionElement.innerHTML = response.data.weather[0].description;
+  humidity.innerHTML = `${response.data.main.humidity}%`;
+  wind.innerHTML = `${Math.round(response.data.wind.speed)} m/s`;
   mainTempElement.innerHTML = `${mainTemp}°`;
   mainEmojiElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
-  weatherDescriptionElement.innerHTML = response.data.weather[0].main;
 }
 
 //DISPLAY THE CURRENT TIME FOR SEATTLE - THIS DOES NOT YET HAVE TO CHANGE W/ CHANGE OF CITY
@@ -113,7 +120,7 @@ TASK LIST
 1). DONE - Include the search engine
 2). DONE - Implement API integration
 3). DONE - Factor in weather icon
-4). Factor in wind speed, precipitation, humidity, and weather description
+4). DONE - Factor in wind speed, humidity, and weather description
 5). Factor in unit conversion (c/f)
 
 TIME DOESN'T MATTER
