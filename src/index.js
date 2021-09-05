@@ -44,6 +44,7 @@ function updateCityData(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
+  getForecast(response.data.coord);
 }
 
 //ON CLICK, CHANGE THE MAIN TEMP BETWEEN FAHRENHEIT AND CELSIUS
@@ -80,8 +81,13 @@ function tempToCelsius(event) {
 }
 
 //DISPLAY 5-DAY WEATHER FORECAST
+function getForecast(coordinates) {
+  let coordsApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unitFahr}`;
+  axios.get(coordsApiUrl).then(displayWeatherForecast);
+}
 
-function displayWeatherForecast(day) {
+function displayWeatherForecast(response) {
+  console.log(response.data.daily);
   let weatherForecast = document.querySelector(".weather-forecast");
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
   let forecastHTML = `<div class="row weather-forecast">`;
@@ -122,7 +128,6 @@ axios.get(createUrlFromNewCityFahr(defaultCityName)).then(updateCityData);
 window.addEventListener("submit", changeCity);
 fahrLink.addEventListener("click", tempToFahrenheit);
 celLink.addEventListener("click", tempToCelsius);
-displayWeatherForecast();
 displayTime();
 
 /*
