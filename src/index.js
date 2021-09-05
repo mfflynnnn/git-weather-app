@@ -34,8 +34,6 @@ function updateCityData(response) {
   let mainTemp = Math.round(response.data.main.temp);
   let mainEmojiElement = document.querySelector(".main-emoji");
 
-  console.log(response.data);
-
   cityDisplay.innerHTML = response.data.name;
   weatherDescriptionElement.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = `${response.data.main.humidity}%`;
@@ -54,8 +52,6 @@ function tempToFahrenheit(event) {
   //Get temp
   let tempString = mainTempElement.innerHTML;
   tempNumber = Number(tempString);
-  console.log(tempString);
-  console.log(tempNumber);
   if (tempUnits == "F") {
     return;
   }
@@ -72,8 +68,6 @@ function tempToCelsius(event) {
   //Get temp
   let tempString = mainTempElement.innerHTML;
   tempNumber = Number(tempString);
-  console.log(tempString);
-  console.log(tempNumber);
   if (tempUnits == "C") {
     return;
   }
@@ -83,6 +77,25 @@ function tempToCelsius(event) {
   tempUnits = "C";
   //Display
   mainTempElement.innerHTML = fahrToCel;
+}
+
+//DISPLAY 5-DAY WEATHER FORECAST
+
+function displayWeatherForecast(day) {
+  let weatherForecast = document.querySelector(".weather-forecast");
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
+  let forecastHTML = `<div class="row weather-forecast">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2 weekdays">
+        <div class="day-of-week">${day}</div>
+        <div class="weekday-emoji">⛅</div>
+        <div class="weekday-temp">65°F</div>
+      </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  weatherForecast.innerHTML = forecastHTML;
 }
 
 //DISPLAY THE CURRENT TIME FOR SEATTLE - THIS DOES NOT YET HAVE TO CHANGE W/ CHANGE OF CITY
@@ -109,37 +122,12 @@ axios.get(createUrlFromNewCityFahr(defaultCityName)).then(updateCityData);
 window.addEventListener("submit", changeCity);
 fahrLink.addEventListener("click", tempToFahrenheit);
 celLink.addEventListener("click", tempToCelsius);
+displayWeatherForecast();
 displayTime();
 
 /*
 -----------------------------------------------------------------------------------------------------
 //FUTURE CODE
-//DISPLAY TEMPERATURE IN FAHRENHEIT
-function tempFahrenheit(event) {
-  event.preventDefault();
-  let primaryTemp = document.querySelector(".main-temp");
-  let celsius = 13;
-  let convertToFahr = Math.round(celsius * (9 / 5) + 32);
-  primaryTemp.innerHTML = convertToFahr;
-}
-
-let fahrLink = document.querySelector(".fahr");
-fahrLink.addEventListener("click", tempFahrenheit);
-
-function tempCelsius(event) {
-  event.preventDefault();
-  let primaryTemp = document.querySelector(".main-temp");
-  let fahrenheit = 55;
-  let convertToCel = Math.round((fahrenheit - 32) * (5 / 9));
-  primaryTemp.innerHTML = convertToCel;
-}
-
-let celLink = document.querySelector(".cel");
-celLink.addEventListener("click", tempCelsius);
-
-function createUrlFromCoords(lat, long) {
-  return `${apiUrl}lat=${lat}&lon=${long}&units=${unitFahr}&appid=${apiKey}`;
-}
 
 //ON BUTTON-CLICK, DISPLAY USER'S CURRENT WEATHER
 function clickForLocalWeather(event) {
@@ -158,12 +146,5 @@ window.addEventListener("click", clickForLocalWeather);
 /* 
 ------------------------------------------
 TASK LIST
-1). DONE - Include the search engine
-2). DONE - Implement API integration
-3). DONE - Factor in weather icon
-4). DONE - Factor in wind speed, humidity, and weather description
-5). Factor in unit conversion (c/f)
-
-TIME DOESN'T MATTER
-FORECAST DOESN'T MATTER
+1). 
 */
