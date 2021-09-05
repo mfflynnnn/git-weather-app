@@ -45,6 +45,7 @@ function updateCityData(response) {
   );
   mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
+  getLocalTime(response.data.coord);
 }
 
 //ON CLICK, CHANGE THE MAIN TEMP BETWEEN FAHRENHEIT AND CELSIUS
@@ -87,26 +88,65 @@ function getForecast(coordinates) {
 }
 
 function displayWeatherForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let weatherForecast = document.querySelector(".weather-forecast");
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
   let forecastHTML = `<div class="row weather-forecast">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2 weekdays">
-        <div class="day-of-week">${day}</div>
-        <div class="weekday-emoji">⛅</div>
-        <div class="weekday-temp">65°F</div>
-      </div>`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2 weekdays">
+          <div class="day-of-week">${formatForecastDays(forecastDay.dt)}</div>
+          <img class="weekday-icon"
+            src="http://openweathermap.org/img/wn/${
+              forecastDay.weather[0].icon
+            }@2x.png"
+          />
+          <div class="forecast-temps">
+            <span class="weekday-temp-max">${Math.round(
+              forecastDay.temp.max
+            )}°</span>
+            <span class="weekday-temp-min">${Math.round(
+              forecastDay.temp.min
+            )}°</span>
+          </div>
+        </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   weatherForecast.innerHTML = forecastHTML;
 }
 
-//DISPLAY THE CURRENT TIME FOR SEATTLE - THIS DOES NOT YET HAVE TO CHANGE W/ CHANGE OF CITY
-function displayTime() {
-  let date = new Date();
+function formatForecastDays(timeStamp) {
+  let date = new Date(timeStamp * 1000);
+  let day = date.getDay();
+  let weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return weekdays[day];
+}
+
+//DISPLAY THE CURRENT TIME
+function getLocalTime(coordinates) {
+  let coordsApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${unitFahr}`;
+  axios.get(coordsApiUrl).then(coordsToDate);
+}
+
+function coordsToDate(response) {
+  let coordsDate = response.data.current.dt;
+  console.log(response.data.current.dt);
+  displayTime(coordsDate);
+}
+
+function displayTime(currentTime) {
+  let date = new Date(currentTime * 1000);
+  console.log(date);
   let options = { weekday: "long" };
   let dayName = new Intl.DateTimeFormat("en-US", options).format(date);
   let hours = date.getHours();
@@ -128,28 +168,3 @@ axios.get(createUrlFromNewCityFahr(defaultCityName)).then(updateCityData);
 window.addEventListener("submit", changeCity);
 fahrLink.addEventListener("click", tempToFahrenheit);
 celLink.addEventListener("click", tempToCelsius);
-displayTime();
-
-/*
------------------------------------------------------------------------------------------------------
-//FUTURE CODE
-
-//ON BUTTON-CLICK, DISPLAY USER'S CURRENT WEATHER
-function clickForLocalWeather(event) {
-  event.preventDefault();
-  let button = 
-  let localCityLatitude = position.coords.latitude;
-  let localCityLongitude = position.coords.longitude;
-  let coordsUrl = createUrlFromCoords(localCityLatitude, localCityLongitude);
-  axios.get(coordsUrl).then(updateCityData);
-}
-
-navigator.geolocation.getCurrentPosition(clickForLocalWeather);
-window.addEventListener("click", clickForLocalWeather);
-*/
-
-/* 
-------------------------------------------
-TASK LIST
-1). 
-*/

@@ -126,13 +126,13 @@ button:hover {
   margin: 15px 8px;
 }
 .day-of-week {
-  font-size: smaller;
-}
-.weekday-emoji {
-  font-size: 35px;
-}
-.weekday-temp {
   font-size: 15px;
+}
+.weekday-icon {
+  max-width: 60px;
+}
+.forecast-temps {
+  font-size: 13px;
   margin: 0 auto 20px auto;
 }
 .sub-card {
