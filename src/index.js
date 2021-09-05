@@ -9,6 +9,9 @@ let celLink = document.querySelector(".cel");
 let tempUnits = "F";
 let mainTempElement = document.querySelector(".main-temp");
 
+const globalDate = new Date();
+const localTimeZoneOffSet = globalDate.getTimezoneOffset() * 60; //seconds from GMT
+
 //CREATE A URL AND PASS IT CITY DATA WHEN WE CALL IT
 function createUrlFromNewCityFahr(city) {
   return `${apiUrl}q=${city}&units=${unitFahr}&appid=${apiKey}`;
@@ -139,20 +142,25 @@ function getLocalTime(coordinates) {
 }
 
 function coordsToDate(response) {
-  let coordsDate = response.data.current.dt;
-  console.log(response.data.current.dt);
-  displayTime(coordsDate);
+  let remoteOffset = response.data.timezone_offset;
+  displayTime(remoteOffset);
 }
 
-function displayTime(currentTime) {
-  let date = new Date(currentTime * 1000);
-  console.log(date);
+function displayTime(remoteOffset) {
+  let localDate = new Date();
+  let offsetDifference = localTimeZoneOffSet + remoteOffset; //difference in the two times in seconds
+  let remoteTime = localDate.setSeconds(
+    localDate.getSeconds() + offsetDifference
+  ); //add that many seconds to the data
+  let remoteAdjustedDate = new Date(remoteTime);
   let options = { weekday: "long" };
-  let dayName = new Intl.DateTimeFormat("en-US", options).format(date);
-  let hours = date.getHours();
+  let dayName = new Intl.DateTimeFormat("en-US", options).format(
+    remoteAdjustedDate
+  );
+  let hours = remoteAdjustedDate.getHours();
   let amOrPm = hours >= 12 ? "pm" : "am";
   hours = hours % 12 || 12;
-  let minutes = date.getMinutes();
+  let minutes = remoteAdjustedDate.getMinutes();
 
   if (minutes < 10) {
     minutes = `0${minutes}`;
