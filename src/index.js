@@ -44,7 +44,7 @@ function updateCityData(response) {
   mainTempElement.innerHTML = mainTemp;
   mainEmojiElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   mainEmojiElement.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
@@ -101,7 +101,7 @@ function displayWeatherForecast(response) {
         `<div class="col-2 weekdays">
           <div class="day-of-week">${formatForecastDays(forecastDay.dt)}</div>
           <img class="weekday-icon"
-            src="http://openweathermap.org/img/wn/${
+            src="https://openweathermap.org/img/wn/${
               forecastDay.weather[0].icon
             }@2x.png"
           />
