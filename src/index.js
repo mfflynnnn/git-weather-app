@@ -36,6 +36,7 @@ function updateCityData(response) {
   let wind = document.querySelector(".wind");
   let mainTemp = Math.round(response.data.main.temp);
   let mainEmojiElement = document.querySelector(".main-emoji");
+  tempUnits = "F";
 
   cityDisplay.innerHTML = response.data.name;
   weatherDescriptionElement.innerHTML = response.data.weather[0].description;
